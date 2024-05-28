@@ -2,10 +2,9 @@
 #include "student1.cpp"
 #include "student2.cpp"
 using namespace std;
-
-int mama;
 int tata;
-
+int mama;
+int ma;
 int main()
 {
     brat aha;
