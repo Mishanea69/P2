@@ -3,7 +3,7 @@
 #include "student2.cpp"
 using namespace std;
 
-
+int mama;
 int main()
 {
     brat aha;
