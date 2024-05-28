@@ -11,6 +11,8 @@ int main()
     brat aha;
     aha.ani = 2;
     cout << aha.ani;    
+
+    //New change!!!!
     
     return 0;
 }
