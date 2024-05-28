@@ -7,9 +7,6 @@ using namespace std;
 #define KEY_RIGHT 77
 #define ENTER 13
 
-
-
-
 class IntrebareGrila{
     string intrebare;
     char raspuns;
@@ -30,6 +27,7 @@ class Test{
 public:
     string nume;
     string path;
+
 
     void creazaTest(){
         
