@@ -2,7 +2,7 @@
 #include "student1.cpp"
 #include "student2.cpp"
 using namespace std;
-
+int tata;
 
 int main()
 {
