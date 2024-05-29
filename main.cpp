@@ -10,17 +10,23 @@ using namespace std;
 
 
 string menu[] = {"View Tests", "Create New Test", "Exit"};
+string actions[] = {"Start Test", "Rename Test", "Edit Test", "Delete Test", "View Stats"};
 string tests[20];
 
 vector<Test> teste;
 int nrTeste;
 
 void TestMenu(){
-    string selection;
+    string selection, action;
     while(1){
         selection = InteractivePage("Tests", tests, nrTeste, true);
-        if(selection=="Test1") Test_execute("Test1");
         if(selection=="") break;
+        else {
+            action = RightPanel("Tests", tests, nrTeste, "Actions", actions, 5);
+            if(action=="Start Test"){
+                Test_execute(tests[front_hilight]);
+            }
+        }
     }
     front_hilight = 0;
 }
@@ -28,7 +34,7 @@ void TestMenu(){
 void Menu(){
     string selection;
     while(1){
-        selection = InteractivePage("Main Menu", menu, 3);
+        selection = InteractivePage(" Main Menu ", menu, 3);
         if(selection=="View Tests"){
             TestMenu();
         } else
