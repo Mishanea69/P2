@@ -1,0 +1,13 @@
+3
+Care este Capitala Romaniei? 
+G
+Bucuresti
+Timisoara
+Iasi
+Craiova
+1
+Care este Capitala Romaniei? 
+T 
+Bucuresti.
+
+
