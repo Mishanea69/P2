@@ -1,4 +1,11 @@
 #include <iostream>
+#include <conio.h>
+#include <string>
+#include <vector>
+#include "data/classes/Test.cpp"
+#include "data/classes/Intrebare.cpp"
+
+
 using namespace std;
 
 #define KEY_UP 72
@@ -6,66 +13,6 @@ using namespace std;
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 #define ENTER 13
-
-class Intrebare{
-protected:
-    string intrebare;
-    int numar;
-
-public:
-    string getQuestion(){return intrebare;}
-    int getNumber(){return numar;}
-
-    Intrebare(string intrebare, int nr): intrebare(intrebare), numar(nr){}
-
-    static string toLowerCase(const string& str) {
-        string result = str;
-        for (size_t i = 0; i < result.size(); ++i) {
-            if (result[i] >= 'A' && result[i] <= 'Z') {
-                result[i] = result[i] + ('a' - 'A');
-            }
-    }
-    return result;
-}
-    virtual bool checkAnswer(string answer){return false;}
-
-};
-
-class IntrebareGrila: public Intrebare{
-    string raspuns;
-    string variante[4];
-public:
-    bool checkAnswer(string answer){return true;}
-
-};
-
-class IntrebareText: public Intrebare{
-    string raspuns;
-
-public:
-    bool checkAnswer(string answer){
-        bool check=false;
-        if(Intrebare::toLowerCase(answer) == Intrebare::toLowerCase(raspuns)) check = true;
-        return check;
-    }
-};
-
-class Test{
-    string nume;
-    string path;
-    int nr_intrebari;
-    vector<Intrebare*> intrebari;
-public:
-    string getName(){return nume;}
-    string getPath(){return path;}
-    int getNumarIntrebari(){return nr_intrebari;}
-    Test(string nume): nume(nume) {path = "data\\"+nume;}
-
-
-    void creazaTest(){
-        
-    }
-};
 
 //Make a string coloured 
 string setColour(string str, string colour){
@@ -224,4 +171,13 @@ bool ConfirmationPrompt(string question){
         ShowPage();
     }
     return pos;
+}
+
+
+int main(int argc, char* argv[]){
+    cout << Intrebare::toLowerCase("ASA ceva eu nu AM Vazut!");
+
+
+    
+    return 0;
 }
