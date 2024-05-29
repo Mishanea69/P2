@@ -19,7 +19,7 @@ void TestMenu(){
     string selection;
     while(1){
         selection = InteractivePage("Tests", tests, nrTeste, true);
-
+        if(selection=="Test1") Test_execute("Test1");
         if(selection=="") break;
     }
     front_hilight = 0;
