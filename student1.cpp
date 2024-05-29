@@ -7,26 +7,43 @@ using namespace std;
 #define KEY_RIGHT 77
 #define ENTER 13
 
-class IntrebareGrila{
+class Intrebare{
+protected:
     string intrebare;
+    int numar;
+
+public:
+    string getQuestion(){return intrebare;}
+    int getNumber(){return numar;}
+
+    Intrebare(string intrebare, int nr): intrebare(intrebare), numar(nr){}
+
+};
+
+class IntrebareGrila: public Intrebare{
     char raspuns;
 public:
-    void print(){
+    void display(){
         cout << intrebare;
     }
 
 };
 
-class IntrebareText{
-    string intrebare;
+class IntrebareText: public Intrebare{
     string raspuns;
 
 };
 
 class Test{
-public:
     string nume;
     string path;
+    int nr_intrebari;
+    vector<Intrebare*> intrebari;
+public:
+    string getName(){return nume;}
+    string getPath(){return path;}
+    int getNumarIntrebari(){return nr_intrebari;}
+    Test(string nume, int nr_intrebari): nume(nume), nr_intrebari(nr_intrebari){path = "data\\"+nume+"\\test.txt";}
 
 
     void creazaTest(){
@@ -65,8 +82,9 @@ string setColour(string str, string colour){
 }
 
 //Display an interactive Page that returns the selection
+int front_hilight;
 string InteractivePage(string title, const string menu[], int list_size, bool back_button = false){
-    int selection = 0;
+    int selection = front_hilight;
     auto showPage = [&](){
         system("cls");
         cout << setColour("---== "+title+" ==---\n", "cyan");
@@ -101,7 +119,7 @@ string InteractivePage(string title, const string menu[], int list_size, bool ba
         showPage();
     }
     system("cls");
-    //front_hilight = selection;
+    front_hilight = selection;
     if(selection<list_size) return menu[selection];
     else return "";
 }
