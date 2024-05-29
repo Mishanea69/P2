@@ -42,21 +42,21 @@ void saveConfig(){
     ofstream file("data\\config.txt");
     file << teste.size() << endl;
     for(int i=0; i<teste.size(); i++){
-        file << teste[i].getNumarIntrebari() << ' ' << teste[i].getName() << endl;
+        file << teste[i].getName() << endl;
+        tests[i]=teste[i].getName();
     }
 
     file.close();
 }
 void setup(){
     ifstream file("data\\config.txt");
-    string str; int n;
+    string str;
 
-    file >> nrTeste;
+    file >> nrTeste; file.ignore();
     for(int i=0; i<nrTeste; i++){
-        file >> n; file.ignore();
         getline(file, str);
         tests[i] = str;
-        teste.emplace_back(str, n);
+        teste.emplace_back(str);
     }
 
     file.close();

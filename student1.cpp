@@ -43,7 +43,7 @@ public:
     string getName(){return nume;}
     string getPath(){return path;}
     int getNumarIntrebari(){return nr_intrebari;}
-    Test(string nume, int nr_intrebari): nume(nume), nr_intrebari(nr_intrebari){path = "data\\"+nume+"\\test.txt";}
+    Test(string nume): nume(nume) {path = "data\\"+nume+"\\test.txt";}
 
 
     void creazaTest(){
