@@ -18,20 +18,36 @@ public:
 
     Intrebare(string intrebare, int nr): intrebare(intrebare), numar(nr){}
 
+    static string toLowerCase(const string& str) {
+        string result = str;
+        for (size_t i = 0; i < result.size(); ++i) {
+            if (result[i] >= 'A' && result[i] <= 'Z') {
+                result[i] = result[i] + ('a' - 'A');
+            }
+    }
+    return result;
+}
+    virtual bool checkAnswer(string answer){return false;}
+
 };
 
 class IntrebareGrila: public Intrebare{
-    char raspuns;
+    string raspuns;
+    string variante[4];
 public:
-    void display(){
-        cout << intrebare;
-    }
+    bool checkAnswer(string answer){return true;}
 
 };
 
 class IntrebareText: public Intrebare{
     string raspuns;
 
+public:
+    bool checkAnswer(string answer){
+        bool check=false;
+        if(Intrebare::toLowerCase(answer) == Intrebare::toLowerCase(raspuns)) check = true;
+        return check;
+    }
 };
 
 class Test{
@@ -127,14 +143,14 @@ string InteractivePage(string title, const string menu[], int list_size, bool ba
 string RightPanel(string left_title, const string left_menu[], int left_list_size, string title, const string menu[], int list_size){
     int selection = 0;
     auto showPage = [&](){
-        int space = 30;
+        int space = 20;
         system("cls");
         cout << setColour("---=="+left_title+"==---", "cyan"); space-=10+left_title.length();
         for(int c=1; c<=space; c++) cout << ' '; cout << "| ";
         cout << setColour("---=="+title+"==---\n", "cyan");
 
         for(int i=0; i<list_size; i++){
-            space = 30;
+            space = 20;
             
             if(i<left_list_size){
                 if(front_hilight == i) cout << setColour(left_menu[i], "green");
