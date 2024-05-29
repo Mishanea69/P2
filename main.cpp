@@ -10,17 +10,23 @@ using namespace std;
 
 
 string menu[] = {"View Tests", "Create New Test", "Exit"};
+string actions[] = {"Start Test", "Rename Test", "Edit Test", "Delete Test", "View Stats"};
 string tests[20];
 
 vector<Test> teste;
 int nrTeste;
 
 void TestMenu(){
-    string selection;
+    string selection, action;
     while(1){
         selection = InteractivePage("Tests", tests, nrTeste, true);
-        if(selection=="Test1") Test_execute("Test1");
         if(selection=="") break;
+        else {
+            action = RightPanel("Tests", tests, nrTeste, "Actions", actions, 5);
+            if(action=="Start Test"){
+                Test_execute(tests[front_hilight]);
+            }
+        }
     }
     front_hilight = 0;
 }
@@ -28,7 +34,7 @@ void TestMenu(){
 void Menu(){
     string selection;
     while(1){
-        selection = InteractivePage("Main Menu", menu, 3);
+        selection = InteractivePage(" Main Menu ", menu, 3);
         if(selection=="View Tests"){
             TestMenu();
         } else
@@ -42,21 +48,21 @@ void saveConfig(){
     ofstream file("data\\config.txt");
     file << teste.size() << endl;
     for(int i=0; i<teste.size(); i++){
-        file << teste[i].getNumarIntrebari() << ' ' << teste[i].getName() << endl;
+        file << teste[i].getName() << endl;
+        tests[i]=teste[i].getName();
     }
 
     file.close();
 }
 void setup(){
     ifstream file("data\\config.txt");
-    string str; int n;
+    string str;
 
-    file >> nrTeste;
+    file >> nrTeste; file.ignore();
     for(int i=0; i<nrTeste; i++){
-        file >> n; file.ignore();
         getline(file, str);
         tests[i] = str;
-        teste.emplace_back(str, n);
+        teste.emplace_back(str);
     }
 
     file.close();
