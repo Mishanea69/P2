@@ -1,16 +1,15 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 class Intrebare{
 protected:
     string intrebare;
-    int numar;
 
 public:
     string getQuestion(){return intrebare;}
-    int getNumber(){return numar;}
 
-    Intrebare(string intrebare, int nr): intrebare(intrebare), numar(nr){}
+    Intrebare(string intrebare): intrebare(intrebare){}
 
     static string toLowerCase(const string& str) {
         string result = str;
@@ -22,14 +21,27 @@ public:
     return result;
 }
     virtual bool checkAnswer(string answer){return false;}
-
+    
+    virtual string getRaspuns(){return "";}
 };
 
 class IntrebareGrila: public Intrebare{
-    string raspuns;
-    string variante[4];
+    int raspuns;
+    string variante[5];
 public:
-    bool checkAnswer(string answer){return true;}
+    IntrebareGrila(string intrebare, int corect, string var[]): Intrebare(intrebare), raspuns(corect){
+        //for(int i=0; i<5; i++) variante[i]=var[i];
+    }
+
+    bool checkAnswer(string answer){
+        if(answer==variante[0]) return true; 
+        else return false;
+    }
+    bool checkAnswer(int answer){
+        if(variante[0]==variante[answer]) return true;
+        else return false;
+    }
+
 
 };
 
@@ -37,9 +49,14 @@ class IntrebareText: public Intrebare{
     string raspuns;
 
 public:
+    IntrebareText(string intrebare, string corect): Intrebare(intrebare), raspuns(corect){
+    }
+
     bool checkAnswer(string answer){
         bool check=false;
         if(Intrebare::toLowerCase(answer) == Intrebare::toLowerCase(raspuns)) check = true;
         return check;
     }
+
+    string getRaspuns(){return raspuns;}
 };

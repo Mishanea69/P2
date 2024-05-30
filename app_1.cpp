@@ -1,11 +1,14 @@
 #include <iostream>
+#include <fstream>
 #include <conio.h>
 #include <string>
+#include <cstring>
 #include <vector>
-#include "data/classes/Test.cpp"
 #include "data/classes/Intrebare.cpp"
+#include "data/classes/Test.cpp"
+#include <filesystem>
 
-
+namespace fs = std::filesystem;
 using namespace std;
 
 #define KEY_UP 72
@@ -174,10 +177,122 @@ bool ConfirmationPrompt(string question){
 }
 
 
-int main(int argc, char* argv[]){
-    cout << Intrebare::toLowerCase("ASA ceva eu nu AM Vazut!");
 
+void vizualizare_teste(){
+    int n;
+    string line;
+    ifstream f("data/config.txt");
+    f >> n; f.ignore();
+    for(int i=1; i<=n; i++){
+        getline(f, line);
+        cout << i << ".) "+line << endl;
+    }
+
+    f.close();
+}
+
+void creare_test(string nume){
+    ifstream check("data/teste/"+nume+"/test.txt");
+    if(!check.is_open()){
+        string cmd = "mkdir data\\teste\\\""+nume+"\"";
+        system(cmd.c_str());
+
+        ofstream ff("data/teste/"+nume+"/test.txt"); ff << 0;
+        ofstream f("data/teste/"+nume+"/stats.txt");
+        ff.close();
+        f.close();
+
+        ofstream config("data/config.txt", std::ios::app);
+        config << endl << nume;
+        config.close();
+    } else cout << setColour("Exista deja un test cu acest nume!", "red");
+
+    check.close();
+}
+
+void stergere_test(string nume){
+    ifstream check("data/teste/"+nume+"/test.txt");
+    if(check.is_open()){
+        check.close();
+        string cmd = "rmdir /S /Q \"data\\teste\\"+nume+"\"";
+        system(cmd.c_str());
+
+        string data[100], line; int i=0;
+
+        ifstream config("data/config.txt");
+        while(getline(config, line)){
+            data[i] = line;
+            i++;
+        } i--;
+        config.close();
+
+        ofstream config_out("data/config.txt");
+        for(int j=0; j<i; j++){
+            if(data[j]!=nume) config_out << data[j];
+            if(j!=i-1) config_out << endl;
+        }
+        config_out.close();
+
+    } else cout << setColour("Nu exista nici un test cu acest nume!", "red");
 
     
+}
+
+void editare_nume_test(string nume, string nume_nou){
+    ifstream check("data/teste/"+nume+"/test.txt");
+    if(check.is_open()){
+        filesystem::path p = filesystem::current_path() / "data" / "teste";
+
+        try {
+        fs::rename(p / nume, p / nume_nou);
+
+        std::cout << "Folder renamed successfully." << std::endl;
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+
+        string data[100], line; int i=0;
+
+        ifstream config("data/config.txt");
+        while(getline(config, line)){
+            data[i] = line;
+            i++;
+        } i--;
+        config.close();
+
+        ofstream config_out("data/config.txt");
+        for(int j=0; j<i; j++){
+            if(data[j]!=nume) config_out << data[j]; else config_out << nume_nou;
+            if(j!=i-1) config_out << endl;
+        }
+        config_out.close();
+
+    } else cout << setColour("Nu exista nici un test cu acest nume!", "red");
+    check.close();
+}
+
+int main(int argc, char* argv[]){
+    if(argc == 1) return 0;
+    
+    string exe(argv[1]);
+
+    if(exe=="vizualizare_teste") vizualizare_teste();
+    else if(exe=="creare_test") creare_test(argv[2]);
+    else if(exe=="stergere_test") stergere_test(argv[2]);
+    //else if(exe=="editare_nume_test") editare_nume_test(argv[2], argv[3]);
+    
+
     return 0;
 }
+
+/*
+vizualizare_teste
+creare_test
+stergere_test
+editare_nume_test
+adauga_intrebare_text
+adauga_intrebare_grila
+elimina_intrebare
+vizualizare_statistici
+vizualizare_statistici_test
+*/
