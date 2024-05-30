@@ -191,6 +191,19 @@ void vizualizare_teste(){
     f.close();
 }
 
+void help(){
+
+    cout << "-" << setColour("vizualizare_teste","green") << endl;
+    cout << "-" << setColour("creare_test","green") << " <nume test>" << endl;
+    cout << "-" << setColour("stergere_test","green") << " <nume test>" << endl;
+    cout << "-" << setColour("editare_nume_test","green") << " <nume test> " << "<nume nou test>" << endl;
+    cout << "-" << setColour("adauga_intrebare_text","green") << " <nume test> <\"intrebare\"> <\"raspuns corect\">" << endl;
+    cout << "-" << setColour("adauga_intrebare_grila","green") << " <nume test> <\"intrebare\"> <nr raspuns corect> <\"varianta 1\"> <\"varianta 2\"> <\"varianta 3\"> <\"varianta 4\">" << endl;
+    cout << "-" << setColour("elimina_intrebare","green") << " <nume test> <numarul itrebarii>" << endl;
+    cout << "-" << setColour("vizualizare_statistici","green") << endl;
+    cout << "-" << setColour("vizualizare_statistici_test","green") << " <nume test>" << endl;
+}
+
 void creare_test(string nume){
     ifstream check("data/teste/"+nume+"/test.txt");
     if(!check.is_open()){
@@ -271,15 +284,22 @@ void editare_nume_test(string nume, string nume_nou){
     check.close();
 }
 
-int main(int argc, char* argv[]){
-    if(argc == 1) return 0;
+void adauga_intrebare_text(){
     
-    string exe(argv[1]);
+}
 
-    if(exe=="vizualizare_teste") vizualizare_teste();
+int main(int argc, char* argv[]){
+    if(argc == 1){ 
+        help();
+        return 0;
+    }
+    string exe(argv[1]);
+    if(exe=="help") help(); 
+    else if(exe=="vizualizare_teste") vizualizare_teste();
     else if(exe=="creare_test") creare_test(argv[2]);
     else if(exe=="stergere_test") stergere_test(argv[2]);
     //else if(exe=="editare_nume_test") editare_nume_test(argv[2], argv[3]);
+    //else if(exe=="adauga_intrebare_text") adauga_intrebare_text(argv[2]);
     
 
     return 0;
