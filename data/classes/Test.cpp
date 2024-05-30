@@ -48,4 +48,28 @@ public:
     string getName(){return nume;}
     string getPath(){return path;}
     int getNumarIntrebari(){return nr_intrebari;}
+
+    void saveTest(){
+        ofstream f(path+"/test.txt");
+        f << nr_intrebari << endl;
+        //for(int i=0; i<nr_intrebari; i++){
+        for (auto& i : intrebari){
+            f << i->getQuestion() << endl;
+            i->addFile(f);
+        }
+
+
+        f.close();
+    }
+
+    void revoveQuestion(int ord){
+        auto it = find(intrebari.begin(), intrebari.end(), elementDorit);
+        intrebari.erase(intrebari.begin()+(ord-1));
+        nr_intrebari--;
+        saveTest();
+    }
+    // void addQuestion(bool grila, string question){
+    //     intrebari.push_back
+    //     saveTest();
+    // }
 };

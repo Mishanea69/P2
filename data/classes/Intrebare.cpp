@@ -23,6 +23,7 @@ public:
     virtual bool checkAnswer(string answer){return false;}
     
     virtual string getRaspuns(){return "";}
+    virtual ofstream& addFile(ofstream& f){return f;}
 };
 
 class IntrebareGrila: public Intrebare{
@@ -30,7 +31,7 @@ class IntrebareGrila: public Intrebare{
     string variante[5];
 public:
     IntrebareGrila(string intrebare, int corect, string var[]): Intrebare(intrebare), raspuns(corect){
-        //for(int i=0; i<5; i++) variante[i]=var[i];
+        for(int i=0; i<5; i++) variante[i]=var[i];
     }
 
     bool checkAnswer(string answer){
@@ -40,6 +41,15 @@ public:
     bool checkAnswer(int answer){
         if(variante[0]==variante[answer]) return true;
         else return false;
+    }
+
+    ofstream& addFile(ofstream& f){
+        f << "G " << raspuns << endl;
+        f << variante[1] << endl;
+        f << variante[2] << endl;
+        f << variante[3] << endl;
+        f << variante[4] << endl;
+        return f;
     }
 
 
@@ -59,4 +69,9 @@ public:
     }
 
     string getRaspuns(){return raspuns;}
+
+    ofstream& addFile(ofstream& f){
+        f << "T " << raspuns << endl;
+        return f;
+    }
 };

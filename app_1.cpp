@@ -284,11 +284,19 @@ void editare_nume_test(string nume, string nume_nou){
     check.close();
 }
 
-void adauga_intrebare_text(){
-    
+void adauga_intrebare_text(string nume, string intrebare, string raspuns){
+    Test test(nume);
+    test.saveTest();
+}
+
+void elimina_intrebare(string nume, int index){
+    Test test(nume);
+    test.revoveQuestion(index);
+
 }
 
 int main(int argc, char* argv[]){
+    elimina_intrebare("Test 1", 2);
     if(argc == 1){ 
         help();
         return 0;
@@ -299,7 +307,7 @@ int main(int argc, char* argv[]){
     else if(exe=="creare_test") creare_test(argv[2]);
     else if(exe=="stergere_test") stergere_test(argv[2]);
     //else if(exe=="editare_nume_test") editare_nume_test(argv[2], argv[3]);
-    //else if(exe=="adauga_intrebare_text") adauga_intrebare_text(argv[2]);
+    else if(exe=="adauga_intrebare_text") adauga_intrebare_text(argv[2], argv[3], argv[4]);
     
 
     return 0;
