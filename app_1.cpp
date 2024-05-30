@@ -226,6 +226,24 @@ void creare_test(string nume){
         ofstream config("data/config.txt", std::ios::app);
         config << endl << nume;
         config.close();
+
+        string data[100], line; int i=1, numar;
+
+        ifstream config1("data/config.txt");
+        config1 >> numar; config1.ignore();
+        while(getline(config1, line)){
+            data[i] = line;
+            i++;
+        }
+        config1.close();
+
+        ofstream config_out("data/config.txt");
+        config_out << numar+1; config_out << endl;
+        for(int j=1; j<i; j++){
+            config_out << data[j];
+            if(j!=i-1) config_out << endl;
+        }
+        config_out.close();
     } else cout << setColour("Exista deja un test cu acest nume!", "red");
 
     check.close();
@@ -238,17 +256,22 @@ void stergere_test(string nume){
         string cmd = "rmdir /S /Q \"data\\teste\\"+nume+"\"";
         system(cmd.c_str());
 
-        string data[100], line; int i=0;
+        string data[100], line; int i=1, numar;
 
         ifstream config("data/config.txt");
+        config >> numar; config.ignore();
         while(getline(config, line)){
-            data[i] = line;
-            i++;
-        } i--;
+            if(line!=nume){
+                data[i] = line;
+                i++;
+
+            }
+        }
         config.close();
 
         ofstream config_out("data/config.txt");
-        for(int j=0; j<i; j++){
+        config_out << numar-1; config_out << endl;
+        for(int j=1; j<i; j++){
             if(data[j]!=nume) config_out << data[j];
             if(j!=i-1) config_out << endl;
         }
@@ -258,7 +281,6 @@ void stergere_test(string nume){
 
     
 }
-
 
 void adauga_intrebare_text(string nume, string intrebare, string raspuns){
     Test test(nume);
@@ -281,6 +303,14 @@ void elimina_intrebare(string nume, int index){
     test.removeQuestion(index);
 }
 
+void vizualizare_statistici_test(string test){
+    cout << setColour("---== Statistici pentru testul ["+test+"] ==---", "cyan") << endl;
+
+}
+void vizualizare_statistici(){
+    cout << setColour("---== Statistici pentru toate testele ==--- ", "cyan") << endl;
+
+}
 
 int main(int argc, char* argv[]){
 
@@ -325,6 +355,8 @@ int main(int argc, char* argv[]){
     else if(exe=="adauga_intrebare_text") adauga_intrebare_text(argv[2], argv[3], argv[4]);
     else if(exe=="adauga_intrebare_grila") adauga_intrebare_grila(argv[2], argv[3], atoi(argv[4]), argv[5], argv[6], argv[7], argv[8]);
     else if(exe=="elimina_intrebare") elimina_intrebare(argv[2], atoi(argv[3]));
+    else if(exe=="vizualizare_statistici_test") vizualizare_statistici_test(argv[2]);
+    else if(exe=="vizualizare_statistici") vizualizare_statistici();
     
 
     return 0;

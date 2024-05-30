@@ -1,0 +1,61 @@
+10
+Ce reprezintă CPU în domeniul informaticii?
+G 1
+Unitatea centrală de procesare
+Unitatea centrală de protecție
+Unitatea centrală de putere
+Unitatea centrală de prelucrare
+Ce înseamnă acronimul "RAM"?
+G 2
+Memorie cu acces aleator
+Memorie cu acces rapid
+Memorie cu acces restricționat
+Memorie cu acces rând
+Ce este un algoritm?
+G 1
+O secvență de pași pentru rezolvarea unei probleme
+Un limbaj de programare
+O unitate de măsură a vitezei procesorului
+O aplicație software
+Ce este HTML?
+G 1
+Un limbaj de marcare pentru crearea paginilor web
+Un limbaj de programare pentru aplicații desktop
+Un protocol pentru transferul de fișiere
+Un tip de bază de date
+Ce reprezintă IPv4?
+G 1
+O versiune de protocol pentru adrese de internet
+Un sistem de operare
+O aplicație de securitate cibernetică
+Un tip de memorie cache
+Ce este un sistem de operare?
+G 1
+Software-ul care gestionează resursele hardware și software ale unui computer
+Un dispozitiv hardware pentru stocarea datelor
+Un tip de rețea informatică
+Un program antivirus
+Ce este cloud computing?
+G 1
+Furnizarea de servicii de calcul (stocare, baze de date, rețea, software) prin internet
+Un tip de virus informatic
+Un standard pentru criptarea datelor
+O metodă de optimizare a codului
+Ce este Python?
+G 1
+Un limbaj de programare de nivel înalt
+Un tip de virus informatic
+Un sistem de operare
+O bază de date relațională
+Ce este o bază de date?
+G 1
+O colecție organizată de date, de obicei stocate și accesate electronic
+Un limbaj de programare pentru aplicații de server
+Un dispozitiv pentru stocarea de fișiere multimedia
+Un protocol de transfer de date
+Ce este un firewall?
+G 1
+Un sistem de securitate pentru monitorizarea și controlul traficului de rețea
+Un tip de memorie nevolatilă
+Un dispozitiv pentru conectarea la internet
+Un program de editare text
