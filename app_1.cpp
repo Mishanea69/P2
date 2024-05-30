@@ -177,6 +177,14 @@ bool ConfirmationPrompt(string question){
 }
 
 
+bool testExists(string test_name){
+    ifstream f("data/config.txt");
+    string line;
+    while(getline(f, line)){
+        if(line == test_name) return true;
+    }
+    return false;
+}
 
 void vizualizare_teste(){
     int n;
@@ -251,63 +259,72 @@ void stergere_test(string nume){
     
 }
 
-void editare_nume_test(string nume, string nume_nou){
-    ifstream check("data/teste/"+nume+"/test.txt");
-    if(check.is_open()){
-        filesystem::path p = filesystem::current_path() / "data" / "teste";
-
-        try {
-        fs::rename(p / nume, p / nume_nou);
-
-        std::cout << "Folder renamed successfully." << std::endl;
-    } catch (const fs::filesystem_error& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
-
-        string data[100], line; int i=0;
-
-        ifstream config("data/config.txt");
-        while(getline(config, line)){
-            data[i] = line;
-            i++;
-        } i--;
-        config.close();
-
-        ofstream config_out("data/config.txt");
-        for(int j=0; j<i; j++){
-            if(data[j]!=nume) config_out << data[j]; else config_out << nume_nou;
-            if(j!=i-1) config_out << endl;
-        }
-        config_out.close();
-
-    } else cout << setColour("Nu exista nici un test cu acest nume!", "red");
-    check.close();
-}
 
 void adauga_intrebare_text(string nume, string intrebare, string raspuns){
     Test test(nume);
-    test.saveTest();
+    test.addQuestion(intrebare, raspuns);
+}
+
+void adauga_intrebare_grila(string nume, string intrebare, int raspuns, string varianta1, string varianta2, string varianta3, string varianta4){
+    Test test(nume);
+    string variante[5];
+    variante[1] = varianta1;
+    variante[2] = varianta2;
+    variante[3] = varianta3;
+    variante[4] = varianta4;
+    variante[0] = variante[raspuns];
+    test.addQuestion(intrebare, raspuns, variante);
 }
 
 void elimina_intrebare(string nume, int index){
     Test test(nume);
-    test.revoveQuestion(index);
-
+    test.removeQuestion(index);
 }
 
+
 int main(int argc, char* argv[]){
-    elimina_intrebare("Test 1", 2);
+
     if(argc == 1){ 
         help();
         return 0;
     }
     string exe(argv[1]);
     if(exe=="help") help(); 
+    else if(exe=="editare_nume_test"){
+        char a[100], b[100];
+        strcpy(a, "data/teste/");
+        strcat(a, argv[2]);
+        strcpy(b, "data/teste/");
+        strcat(b, argv[3]);
+        if(rename(a, b)){
+            cout << setColour("Nu exista nici un test cu asa nume!", "red");
+        } else {
+            cout << setColour("Numele testului a fost editat cu succes!", "green");
+        }
+
+        ifstream config1("data/config.txt");
+        string data[100], line; int i=0, j=0;
+        while(getline(config1, line)){
+            data[i] = line;
+            i++;
+        }
+        config1.close();
+        ofstream config2("data/config.txt");
+        while (j<i)
+        {
+            if(data[j]==argv[2]) config2 << argv[3];
+            else config2 << data[j];
+            if(j!=i-1) config2 << endl;
+            j++;
+        }
+        config2.close();
+    } 
     else if(exe=="vizualizare_teste") vizualizare_teste();
     else if(exe=="creare_test") creare_test(argv[2]);
     else if(exe=="stergere_test") stergere_test(argv[2]);
-    //else if(exe=="editare_nume_test") editare_nume_test(argv[2], argv[3]);
     else if(exe=="adauga_intrebare_text") adauga_intrebare_text(argv[2], argv[3], argv[4]);
+    else if(exe=="adauga_intrebare_grila") adauga_intrebare_grila(argv[2], argv[3], atoi(argv[4]), argv[5], argv[6], argv[7], argv[8]);
+    else if(exe=="elimina_intrebare") elimina_intrebare(argv[2], atoi(argv[3]));
     
 
     return 0;

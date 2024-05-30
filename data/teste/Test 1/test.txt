@@ -1,13 +1,13 @@
 3
-In ce oras este amplasata Universitatea de Vest? 
+//Care este Capitala Romaniei? 
+G 1
+Bucuresti 
+Timisoara 
+Iasi 
+Craiova
+//In ce oras este amplasata Universitatea de Vest? 
 T Timisoara
-Ce este UVT?
-G 3
-Un muzeu 
-Organizatie Studenteasca
-Universitate
-Un club de noapte
-Ce este UVT?
+//Ce este UVT?
 G 3
 Un muzeu 
 Organizatie Studenteasca

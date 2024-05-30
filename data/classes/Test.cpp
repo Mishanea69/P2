@@ -4,7 +4,9 @@
 #include <fstream>
 using namespace std;
 
-
+string sendError(string str){
+    return "\033[0;31m"+str+"\033[0m";
+}
 
 class Test{
     string nume;
@@ -52,24 +54,37 @@ public:
     void saveTest(){
         ofstream f(path+"/test.txt");
         f << nr_intrebari << endl;
-        //for(int i=0; i<nr_intrebari; i++){
-        for (auto& i : intrebari){
-            f << i->getQuestion() << endl;
-            i->addFile(f);
+        for(int i=0; i<nr_intrebari; i++){
+            f << intrebari[i]->getQuestion() << endl;
+            intrebari[i]->addFile(f);
         }
-
 
         f.close();
     }
 
-    void revoveQuestion(int ord){
-        auto it = find(intrebari.begin(), intrebari.end(), elementDorit);
-        intrebari.erase(intrebari.begin()+(ord-1));
-        nr_intrebari--;
+    void removeQuestion(int ord){
+        if (!intrebari.empty()) {
+            if(ord<1 || ord>nr_intrebari) {
+                cout << sendError("Testul nu contie intrebare cu acest numar!\n");
+                return;
+            }
+            intrebari.erase(intrebari.begin()+ord-1);
+            nr_intrebari--;
+            saveTest();
+        } else {
+            cout << sendError("Testul nu are nici o intrebare!\n");
+        }
+    }
+
+    void addQuestion(string intrebare, string raspuns){
+        intrebari.push_back(new IntrebareText(intrebare, raspuns));
+        nr_intrebari++;
         saveTest();
     }
-    // void addQuestion(bool grila, string question){
-    //     intrebari.push_back
-    //     saveTest();
-    // }
+    void addQuestion(string intrebare, int raspuns, string variante[5]){
+        intrebari.push_back(new IntrebareGrila(intrebare, raspuns, variante));
+        nr_intrebari++;
+        saveTest();
+    }
 };
+

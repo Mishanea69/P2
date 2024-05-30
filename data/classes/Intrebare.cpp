@@ -52,15 +52,14 @@ public:
         return f;
     }
 
-
+    string getRaspuns(){return variante[0];}
 };
 
 class IntrebareText: public Intrebare{
     string raspuns;
 
 public:
-    IntrebareText(string intrebare, string corect): Intrebare(intrebare), raspuns(corect){
-    }
+    IntrebareText(string intrebare, string corect): Intrebare(intrebare), raspuns(corect){}
 
     bool checkAnswer(string answer){
         bool check=false;
