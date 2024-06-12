@@ -1,76 +1,64 @@
+#include "Intrebare.h"
 #include <iostream>
 #include <fstream>
-using namespace std;
 
-class Intrebare{
-protected:
-    string intrebare;
+std::string Intrebare::getQuestion(){return intrebare;}
 
-public:
-    string getQuestion(){return intrebare;}
+Intrebare::Intrebare(std::string intrebare): intrebare(intrebare){}
 
-    Intrebare(string intrebare): intrebare(intrebare){}
-
-    static string toLowerCase(const string& str) {
-        string result = str;
-        for (size_t i = 0; i < result.size(); ++i) {
-            if (result[i] >= 'A' && result[i] <= 'Z') {
-                result[i] = result[i] + ('a' - 'A');
-            }
+std::string Intrebare::toLowerCase(const std::string& str) {
+    std::string result = str;
+    for (size_t i = 0; i < result.size(); ++i) {
+        if (result[i] >= 'A' && result[i] <= 'Z') {
+            result[i] = result[i] + ('a' - 'A');
+        }
     }
     return result;
 }
-    virtual bool checkAnswer(string answer){return false;}
-    
-    virtual string getRaspuns(){return "";}
-    virtual ofstream& addFile(ofstream& f){return f;}
-};
+bool Intrebare::checkAnswer(std::string answer){return false;}
 
-class IntrebareGrila: public Intrebare{
-    int raspuns;
-    string variante[5];
-public:
-    IntrebareGrila(string intrebare, int corect, string var[]): Intrebare(intrebare), raspuns(corect){
-        for(int i=0; i<5; i++) variante[i]=var[i];
-    }
+std::string Intrebare::getRaspuns(){return "";}
+std::ofstream& Intrebare::addFile(std::ofstream& f){return f;}
 
-    bool checkAnswer(string answer){
-        if(answer==variante[0]) return true; 
-        else return false;
-    }
-    bool checkAnswer(int answer){
-        if(variante[0]==variante[answer]) return true;
-        else return false;
-    }
 
-    ofstream& addFile(ofstream& f){
-        f << "G " << raspuns << endl;
-        f << variante[1] << endl;
-        f << variante[2] << endl;
-        f << variante[3] << endl;
-        f << variante[4] << endl;
-        return f;
-    }
 
-    string getRaspuns(){return variante[0];}
-};
+IntrebareGrila::IntrebareGrila(std::string intrebare, int corect, std::string var[]): Intrebare(intrebare), raspuns(corect){
+    for(int i=0; i<5; i++) variante[i]=var[i];
+}
 
-class IntrebareText: public Intrebare{
-    string raspuns;
+bool IntrebareGrila::checkAnswer(std::string answer){
+    if(answer==variante[0]) return true; 
+    else return false;
+}
+bool IntrebareGrila::checkAnswer(int answer){
+    if(variante[0]==variante[answer]) return true;
+    else return false;
+}
 
-public:
-    IntrebareText(string intrebare, string corect): Intrebare(intrebare), raspuns(corect){}
+std::ofstream& IntrebareGrila::addFile(std::ofstream& f){
+    f << "G " << raspuns << std::endl;
+    f << variante[1] << std::endl;
+    f << variante[2] << std::endl;
+    f << variante[3] << std::endl;
+    f << variante[4] << std::endl;
+    return f;
+}
 
-    bool checkAnswer(string answer){
-        bool check=false;
-        if(Intrebare::toLowerCase(answer) == Intrebare::toLowerCase(raspuns)) check = true;
-        return check;
-    }
+std::string IntrebareGrila::getRaspuns(){return variante[0];}
 
-    string getRaspuns(){return raspuns;}
 
-    ofstream& addFile(ofstream& f){
-        f << "T " << raspuns << endl;
-        return f;
-    }
-};
+
+IntrebareText::IntrebareText(std::string intrebare, std::string corect): Intrebare(intrebare), raspuns(corect){}
+
+bool IntrebareText::checkAnswer(std::string answer){
+    bool check=false;
+    if(Intrebare::toLowerCase(answer) == Intrebare::toLowerCase(raspuns)) check = true;
+    return check;
+}
+
+std::string IntrebareText::getRaspuns(){return raspuns;}
+
+std::ofstream& IntrebareText::addFile(std::ofstream& f){
+    f << "T " << raspuns << std::endl;
+    return f;
+}

@@ -4,8 +4,7 @@
 #include <string>
 #include <cstring>
 #include <vector>
-#include "data/classes/Intrebare.cpp"
-#include "data/classes/Test.cpp"
+#include "data/classes/Test.h"
 #include <filesystem>
 
 namespace fs = std::filesystem;
