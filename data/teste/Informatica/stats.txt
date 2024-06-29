@@ -1,24 +1,24 @@
 Olari Mihai
-10 640
-G 1 
-G 2 
-G 1 
-G 1 
-G 1 
-G 1 
-G 1 
-G 1 
-G 1 
-G 1
+10
+G 1 1 
+G 1 2 
+G 1 1 
+G 1 1 
+G 1 1 
+G 1 1 
+G 1 1 
+G 1 1 
+G 1 1 
+G 1 1
 Andrei Popescu
-6 732
-G 1 
-G 2 
-G 1 
-G 2 
-G 1 
-G 3 
-G 1 
-G 4 
-G 2 
-G 1
+6
+G 1 1 
+G 1 2 
+G 1 1 
+G 0 2 
+G 1 1 
+G 0 3 
+G 1 1 
+G 0 4 
+G 0 2 
+G 1 1
