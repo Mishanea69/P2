@@ -15,6 +15,7 @@ public:
     virtual bool checkAnswer(std::string answer);
     
     virtual std::string getRaspuns();
+    virtual std::string getRaspuns(int x);
     virtual std::ofstream& addFile(std::ofstream& f);
 };
 
@@ -30,6 +31,7 @@ public:
     std::ofstream& addFile(std::ofstream& f);
 
     std::string getRaspuns();
+    std::string getRaspuns(int x);
 };
 
 class IntrebareText: public Intrebare{

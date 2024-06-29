@@ -1,11 +1,11 @@
 10
-Ce reprezintă CPU în domeniul informaticii?
+Ce reprezinta CPU in domeniul informaticii?
 G 1
 Unitatea centrală de procesare
 Unitatea centrală de protecție
 Unitatea centrală de putere
 Unitatea centrală de prelucrare
-Ce înseamnă acronimul "RAM"?
+Ce inseamna acronimul "RAM"?
 G 2
 Memorie cu acces aleator
 Memorie cu acces rapid
@@ -23,7 +23,7 @@ Un limbaj de marcare pentru crearea paginilor web
 Un limbaj de programare pentru aplicații desktop
 Un protocol pentru transferul de fișiere
 Un tip de bază de date
-Ce reprezintă IPv4?
+Ce reprezinta IPv4?
 G 1
 O versiune de protocol pentru adrese de internet
 Un sistem de operare
@@ -47,7 +47,7 @@ Un limbaj de programare de nivel înalt
 Un tip de virus informatic
 Un sistem de operare
 O bază de date relațională
-Ce este o bază de date?
+Ce este o baza de date?
 G 1
 O colecție organizată de date, de obicei stocate și accesate electronic
 Un limbaj de programare pentru aplicații de server
