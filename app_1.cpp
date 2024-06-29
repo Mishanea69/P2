@@ -4,8 +4,12 @@
 #include <string>
 #include <cstring>
 #include <vector>
-#include "data/classes/Test.h"
+// #include "data/classes/Test.h"
+#include "data/classes/Test.cpp"
+#include "data/classes/Intrebare.cpp"
 #include <filesystem>
+#include <algorithm>
+#include <cmath>
 
 namespace fs = std::filesystem;
 using namespace std;
@@ -302,8 +306,218 @@ void elimina_intrebare(string nume, int index){
     test.removeQuestion(index);
 }
 
-void vizualizare_statistici_test(string test){
-    cout << setColour("---== Statistici pentru testul ["+test+"] ==---", "cyan") << endl;
+
+vector<string> split(string str,   char* delimiter)
+{
+    vector<string> v;
+     char *token = strtok(const_cast<char*>(str.c_str()), delimiter);
+    while (token != nullptr)
+    {
+        v.push_back(string(token));
+        token = strtok(nullptr, delimiter);
+    }
+   
+  return v;
+}
+void textBox(string text){
+// 186.) ║
+// 187.) ╗
+// 188.) ╝
+// 201.) ╔
+// 200.) ╚
+// 205.) ═
+// 209.) ╤
+// 207.) ╧
+// 179.) │
+    int n = 0;
+    int max = 0;
+    for(int i=0; i<text.length(); i++) if(text[i]=='\n'){
+        if(max<n) max = n;
+        n = 0;
+    } else {
+        n++;
+    }
+    if(max < n) max = n;
+    max+=2;
+
+
+    vector<string> lines = split(text, string("\n").data());
+
+    cout << char(201);  for(int i=0; i<max; i++) cout << char(205); cout << char(187) << endl; 
+    for(auto line: lines){
+        n = max - line.length() - 2;
+        cout << char(186) << ' ' << line; 
+        while(n>0){
+            n--;
+            cout << ' ';
+        }
+        cout << ' ' << char(186) << endl;
+    }
+    cout << char(200);  for(int i=0; i<max; i++) cout << char(205); cout << char(188) << endl; 
+}
+void table(vector<vector<string>> text, string title){
+// 186.) ║
+// 186.) ║
+// 187.) ╗
+// 188.) ╝
+// 201.) ╔
+// 200.) ╚
+// 205.) ═
+// 209.) ╤
+// 207.) ╧
+// 179.) │
+// 196.) ─
+// 197.) ┼
+// 199.) ╟
+// 182.) ╢
+    int n = 0, nr_collumns = 0;
+    vector<int> row_len;
+    for(auto cell : text[0]){row_len.emplace_back(cell.length()); nr_collumns++;}
+    for(auto row : text){
+        for(int i=0; i<nr_collumns; i++){
+            if(row[i][0]=='\033'){
+                if(row[i].length()-11 > row_len[i]) {
+                    row_len[i] = row[i].length() - 11;
+                }        
+            } else {
+                if(row[i].length()> row_len[i]) row_len[i] = row[i].length();
+            }
+        }
+    }
+    // cout << setColour("["+title+"]", "yellow") << endl;
+    cout << "["+title+"]" << endl;
+
+    cout << char(201);
+    for(int i=0; i<nr_collumns; i++){
+        for(int j=0; j<row_len[i]+2; j++) cout << char(205);
+        if(i == nr_collumns-1) cout << char(187) << endl;
+        else cout << char(209);
+    }
+
+    int p=0, pp=0;
+    for(auto row : text){
+        cout << char(186);
+        pp=0;
+        for(auto cell : row){
+            cout << ' ' << cell;
+            if(cell[0]=='\033') for(int i=0; i<=row_len[pp] - (cell.length() - 11); i++) cout << ' ';
+            else for(int i=0; i<=row_len[pp] - cell.length(); i++) cout << ' ';
+            if(pp != nr_collumns-1) cout << char(179);
+            pp++;
+        }
+        cout << char(186) << endl;
+        if(p==0){
+            cout << char(199);
+            for(int i=0; i<nr_collumns; i++){
+                for(int j=0; j<row_len[i]+2; j++) cout << char(196);
+                if(i == nr_collumns-1) cout << char(182) << endl;
+                else cout << char(197);
+            }
+        }
+        p++;
+    }
+
+    cout << char(200);
+    for(int i=0; i<nr_collumns; i++){
+        for(int j=0; j<row_len[i]+2; j++) cout << char(205);
+        if(i == nr_collumns-1) cout << char(188) << endl;
+        else cout << char(207);
+    }
+    
+}
+
+
+void vizualizare_statistici_test(string nume_test){
+    Test test(nume_test);
+    ifstream f(test.getPath()+"/stats.txt");
+
+    vector<pair<string, int>> persoane; int nr_persoane=0;
+    int nr_answers[test.getNumarIntrebari()+1];
+    for(int i=0; i<=test.getNumarIntrebari(); i++)nr_answers[i]=0;
+
+    vector<vector<vector<string>>> statistici(test.getNumarIntrebari()+1);
+    for(int i=1; i<=test.getNumarIntrebari(); i++){
+        statistici[i].emplace_back(vector<string>());
+        statistici[i][0].emplace_back("Nr");
+        statistici[i][0].emplace_back("Nume, Prenume");
+        statistici[i][0].emplace_back("Raspuns");
+        statistici[i][0].emplace_back("Corect");
+    }
+
+    string line, rsp;
+    int right_answers, it=0, nr_intrebare;
+    char tip;
+    while(getline(f, line)){
+        it++;
+        f >> right_answers; f.ignore();
+        persoane.emplace_back(line, right_answers);
+
+        for(int i=1; i<=test.getNumarIntrebari(); i++){
+            statistici[i].emplace_back(vector<string>());
+            
+            f >> tip; f >> right_answers;
+            f.ignore(); getline(f, rsp);
+            
+            if(right_answers){
+                nr_answers[i]++;
+                statistici[i][it].emplace_back(setColour(to_string(it), "green"));
+                statistici[i][it].emplace_back(setColour(line, "green"));
+                statistici[i][it].emplace_back(setColour(rsp, "green"));
+                statistici[i][it].emplace_back(setColour("Da", "green"));
+            } else {
+                statistici[i][it].emplace_back(setColour(to_string(it), "red"));
+                statistici[i][it].emplace_back(setColour(line, "red"));
+                statistici[i][it].emplace_back(setColour(rsp, "red"));
+                statistici[i][it].emplace_back(setColour("Nu", "red"));
+            }
+        }
+
+        nr_persoane++;
+    } 
+    if(nr_persoane==0) {
+            cout << setColour("Nu exista statistici pentru acest test!", "red");
+            return;
+    }
+    cout << setColour("---== Statistici pentru testul ["+nume_test+"] ==---", "cyan") << endl;
+
+    //medie
+    int sum_right_answers = 0;
+    for(auto p : persoane){
+        sum_right_answers += p.second;
+    }
+    cout << "Punctaj mediu: " << fixed << setprecision(2) << sum_right_answers/nr_persoane << '/' << test.getNumarIntrebari() << " puncte" << endl;
+    cout << "Punctaj mediu (in %): " << fixed << setprecision(2) << (float(sum_right_answers)/float(test.getNumarIntrebari()*nr_persoane))*100 << "%" << endl << endl;
+
+    //clasament
+    sort(persoane.begin(), persoane.end(), [](auto &left, auto &right) {
+        return left.second > right.second;
+    }); 
+    vector<vector<string>> clasament;
+    int index = 0;
+    clasament.emplace_back(vector<string>());
+    clasament[index].emplace_back("Nr");
+    clasament[index].emplace_back("Nume, Prenume");  
+    clasament[index].emplace_back("Punctaj");
+    clasament[index].emplace_back("(%)");
+    for(auto l : persoane){
+        index++;
+        clasament.emplace_back(vector<string>());
+        clasament[index].emplace_back(to_string(index));
+        clasament[index].emplace_back(l.first);
+        clasament[index].emplace_back(to_string(l.second) + "/" + to_string(test.getNumarIntrebari()));
+        clasament[index].emplace_back(to_string(int((float(l.second)/float(test.getNumarIntrebari()))*100)) + "%");
+    } 
+    table(clasament, "Clasament");
+    cout << endl;
+
+
+    textBox("<<Statistici Intrebari>>");
+
+    for(int i=1; i<=test.getNumarIntrebari(); i++){
+        // cout << i << ".)" << test.intrebari[i-1]->getQuestion() << "\nRaspunsuri corecte: " << nr_answers[i] << '/' << nr_persoane << "\n";
+        table(statistici[i], "("+to_string(i)+") "+test.intrebari[i-1]->getQuestion());
+    }
+    f.close();
 
 }
 void vizualizare_statistici(){
@@ -312,7 +526,7 @@ void vizualizare_statistici(){
 }
 
 int main(int argc, char* argv[]){
-
+    system("cls");
     if(argc == 1){ 
         help();
         return 0;

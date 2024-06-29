@@ -19,6 +19,7 @@ bool Intrebare::checkAnswer(std::string answer){return false;}
 bool Intrebare::checkAnswer(int answer){return false;}
 
 std::string Intrebare::getRaspuns(){return "";}
+std::string Intrebare::getRaspuns(int x){return "";}
 std::ofstream& Intrebare::addFile(std::ofstream& f){return f;}
 
 
@@ -46,6 +47,7 @@ std::ofstream& IntrebareGrila::addFile(std::ofstream& f){
 }
 
 std::string IntrebareGrila::getRaspuns(){return variante[0];}
+std::string IntrebareGrila::getRaspuns(int x){return variante[x];}
 
 
 
