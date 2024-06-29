@@ -9,4 +9,27 @@ T 1 180
 T 1 Produs
 T 1 5
 T 1 Identitate
-T 1 7
+T 1 7Anatol
+0
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+Anatol
+0
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
+T 0 1
