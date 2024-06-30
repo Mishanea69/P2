@@ -5,9 +5,9 @@
 #include <cstring>
 #include <vector>
 #include <map>
-// #include "data/classes/Test.h"
-#include "data/classes/Test.cpp"
-#include "data/classes/Intrebare.cpp"
+#include "data/classes/Test.h"
+// #include "data/classes/Test.cpp"
+// #include "data/classes/Intrebare.cpp"
 #include <filesystem>
 #include <algorithm>
 #include <cmath>
@@ -598,7 +598,7 @@ void vizualizare_statistici(){
 }
 
 int main(int argc, char* argv[]){
-    system("cls");
+    // system("cls");
     if(argc == 1){ 
         help();
         return 0;
