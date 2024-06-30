@@ -1,14 +1,14 @@
 Olari Mihai
 10
-G 1 1 
-G 1 2 
-G 1 1 
-G 1 1 
-G 1 1 
-G 1 1 
-G 1 1 
-G 1 1 
-G 1 1 
+G 1 1
+G 1 2
+G 1 1
+G 1 1
+G 1 1
+G 1 1
+G 1 1
+G 1 1
+G 1 1
 G 1 1
 Andrei Popescu
 6
@@ -34,8 +34,10 @@ G 1 1
 G 1 1
 G 1 1
 G 1 1
+
 Anatol
 9
+G 1 1
 G 0 1
 G 1 1
 G 1 1
@@ -47,17 +49,7 @@ G 1 1
 G 1 1
 Anatol
 9
-G 0 1
 G 1 1
-G 1 1
-G 1 1
-G 1 1
-G 1 1
-G 1 1
-G 1 1
-G 1 1
-Anatol
-9
 G 0 1
 G 1 1
 G 1 1
