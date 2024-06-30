@@ -13,6 +13,7 @@ public:
 
     static std::string toLowerCase(const std::string& str);
     virtual bool checkAnswer(std::string answer);
+    virtual bool checkAnswer(int answer);
     
     virtual std::string getRaspuns();
     virtual std::string getRaspuns(int x);

@@ -16,6 +16,7 @@ std::string Intrebare::toLowerCase(const std::string& str) {
     return result;
 }
 bool Intrebare::checkAnswer(std::string answer){return false;}
+bool Intrebare::checkAnswer(int answer){return false;}
 
 std::string Intrebare::getRaspuns(){return "";}
 std::string Intrebare::getRaspuns(int x){return "";}
