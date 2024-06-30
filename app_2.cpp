@@ -345,15 +345,21 @@ void end_test(const string &nume_test) {
         return;
     }
     inputFile.seekg(0, ios::beg);
-    string line;
-    getline(inputFile, line);
+    string line,numar;
+    string data;
+    getline(inputFile, numar);
     string nume_file;
+    getline(inputFile, line);
+    getline(inputFile, line);
+    data += line + "\n";
+    getline(inputFile, line);
+    data += line + "\n";
+    cout<<"Rezultatul "<<line<<" din "<<numar<<endl;
     if (!getline(inputFile, nume_file)) {
         cerr << "Eroare la citirea numelui fișierului." << endl;
         inputFile.close();
         return;
     }
-    string data;
     while (getline(inputFile, line)) {
         data += line + "\n";
     }
