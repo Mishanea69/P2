@@ -21,6 +21,10 @@ bool Intrebare::checkAnswer(int answer){return false;}
 std::string Intrebare::getRaspuns(){return "";}
 std::string Intrebare::getRaspuns(int x){return "";}
 std::ofstream& Intrebare::addFile(std::ofstream& f){return f;}
+std::ostream& operator<<(std::ostream& os, const Intrebare& t){
+    os << t.intrebare;
+    return os;
+}
 
 
 

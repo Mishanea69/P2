@@ -3,6 +3,7 @@
 #include "Intrebare.h"
 #include <vector>
 #include <string>
+#include <iostream>
 
 class Test{
     std::string nume;
@@ -16,6 +17,8 @@ public:
     std::string getName();
     std::string getPath();
     int getNumarIntrebari();
+
+    friend std::ostream& operator<<(std::ostream&, const Test&);
 
     void saveTest();
 

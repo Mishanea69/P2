@@ -45,6 +45,11 @@ std::string Test::getName(){return nume;}
 std::string Test::getPath(){return path;}
 int Test::getNumarIntrebari(){return nr_intrebari;}
 
+std::ostream& operator<<(std::ostream& os, const Test& t){
+    os << t.nume << "\n";
+    return os;
+}
+
 void Test::saveTest(){
     std::ofstream f(path+"/test.txt");
     f << nr_intrebari << std::endl;

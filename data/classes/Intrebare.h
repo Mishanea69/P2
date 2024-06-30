@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 class Intrebare{
 protected:
@@ -18,6 +19,8 @@ public:
     virtual std::string getRaspuns();
     virtual std::string getRaspuns(int x);
     virtual std::ofstream& addFile(std::ofstream& f);
+
+    friend std::ostream& operator<<(std::ostream&, const Intrebare&);
 };
 
 class IntrebareGrila: public Intrebare{
