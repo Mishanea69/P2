@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <map>
 // #include "data/classes/Test.h"
 #include "data/classes/Test.cpp"
 #include "data/classes/Intrebare.cpp"
@@ -462,12 +463,14 @@ void vizualizare_statistici_test(string nume_test){
                 nr_answers[i]++;
                 statistici[i][it].emplace_back(setColour(to_string(it), "green"));
                 statistici[i][it].emplace_back(setColour(line, "green"));
-                statistici[i][it].emplace_back(setColour(rsp, "green"));
+                if(tip=='T') statistici[i][it].emplace_back(setColour(rsp, "green"));
+                else statistici[i][it].emplace_back(setColour("["+rsp+"]-"+test.intrebari[i-1]->getRaspuns(stoi(rsp)), "green"));
                 statistici[i][it].emplace_back(setColour("Da", "green"));
             } else {
                 statistici[i][it].emplace_back(setColour(to_string(it), "red"));
                 statistici[i][it].emplace_back(setColour(line, "red"));
-                statistici[i][it].emplace_back(setColour(rsp, "red"));
+                if(tip=='T') statistici[i][it].emplace_back(setColour(rsp, "red"));
+                else statistici[i][it].emplace_back(setColour("["+rsp+"]-"+test.intrebari[i-1]->getRaspuns(stoi(rsp)), "red"));
                 statistici[i][it].emplace_back(setColour("Nu", "red"));
             }
         }
@@ -515,13 +518,82 @@ void vizualizare_statistici_test(string nume_test){
 
     for(int i=1; i<=test.getNumarIntrebari(); i++){
         // cout << i << ".)" << test.intrebari[i-1]->getQuestion() << "\nRaspunsuri corecte: " << nr_answers[i] << '/' << nr_persoane << "\n";
-        table(statistici[i], "("+to_string(i)+") "+test.intrebari[i-1]->getQuestion());
+        table(statistici[i], setColour("("+to_string(i)+") ", "yellow")+test.intrebari[i-1]->getQuestion());
     }
     f.close();
 
 }
 void vizualizare_statistici(){
     cout << setColour("---== Statistici pentru toate testele ==--- ", "cyan") << endl;
+    ifstream config("data/config.txt");
+    string line, persoana;
+    getline(config, line);
+    if(line == "0"){
+        cout << setColour("Nu exista nici un test", "red");
+        return;
+    }
+    vector<string> teste;
+    while(getline(config, line)){
+        teste.emplace_back(line);
+    }
+    int nr_teste = teste.size();
+    int nr_persoane = 0;
+    map<string, vector<bool>> statistici;
+    vector<vector<string>> tabel;
+
+    for(auto t : teste){
+        vizualizare_statistici_test(t);
+    }
+
+    // int puncte, it = 0; 
+    // for(auto t : teste){
+    //     Test test(t);
+    //     ifstream f(test.getPath()+"/statistici.txt");
+
+    //     while(getline(f, persoana)){
+    //         f >> puncte; f.ignore(); 
+    //         if(statistici.find(persoana)!= statistici.end()){
+                
+    //             statistici[persoana][it] = true;//to_string(puncte)+"/"+to_string(test.getNumarIntrebari());
+    //         } else {
+    //             statistici[persoana] = vector<bool>(nr_teste, false);
+    //             statistici[persoana][it] = true;
+    //             nr_persoane++;
+    //         }
+    //         for(int i=0; i<test.getNumarIntrebari(); i++){
+    //             getline(f, line);
+    //         }
+
+    //     }
+
+    //     f.close();
+    //     it++;
+    // }
+
+    // tabel.emplace_back(vector<string>());
+    // tabel[0].emplace_back("Nr");
+    // tabel[0].emplace_back("Nume, Prenume");
+    // for(auto t: teste){
+    //     tabel[0].emplace_back(t);
+    // } it = 0;
+    // for(auto key : statistici){
+    //     it++;
+    //     tabel.emplace_back(vector<string>());
+    //     tabel[it].emplace_back(to_string(it));
+    //     tabel[it].emplace_back("key.first");
+    //     for(auto val : key.second){
+    //         tabel[it].emplace_back(val);
+    //     }
+    // }
+    // for (const auto& pair : statistici) {
+    //     cout << pair.first << ": ";
+    //     for (bool result : pair.second) {
+    //         cout << (result ? "true " : "false ");
+    //     }
+    //     cout << endl;
+    // }
+
+    // table(tabel, "Clasament");
 
 }
 
